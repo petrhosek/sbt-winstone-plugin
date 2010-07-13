@@ -1,0 +1,33 @@
+A "simple-build-tool":http://code.google.com/p/simple-build-tool/ (sbt) plugin for embedding your warfile into the "Winstone Servlet Container":http://winstone.sourceforge.net/#embedding.
+
+h2. Usage
+
+Check out sbt's "plugin documentation":http://code.google.com/p/simple-build-tool/wiki/SbtPlugins.
+
+1. Modify your @project/plugins/Plugins.scala@ file:
+
+<pre>
+import sbt._
+class Plugins(info: ProjectInfo) extends PluginDefinition(info) {
+  val github = "GitHub" at "http://petrh.github.com/m2/"
+  val winstone = "com.github.petrh" % "sbt-winstone-plugin" % "1.0-SNAPSHOT"
+}
+</pre>
+
+2. Modify your project definition file:
+
+<pre>
+import sbt._
+class Project(info: ProjectInfo) extends DefaultWebProject(info) with WinstoneProject {
+  ...
+}
+</pre>
+
+3. Now you may run:
+
+<pre>
+  sbt update
+  sbt embed
+</pre>
+
+4. The generated jarfile may be run directly using @java -jar jarfile@.
